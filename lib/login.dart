@@ -9,9 +9,8 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff082032),
       body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 85, horizontal: 25),
+          padding: const EdgeInsets.only(top: 55, left: 20, right: 20),
           child: Column(
             children: [
               Align(
@@ -19,9 +18,9 @@ class LoginScreen extends StatelessWidget {
                 child: Text(
                   "Account Login",
                   style: TextStyle(
-                    fontSize: 38,
-                    color: Color(0xffF0A500),
-                  ),
+                      fontSize: 40,
+                      color: Color(0xffF0A500),
+                      fontWeight: FontWeight.w600),
                 ),
               ),
               Align(
@@ -30,13 +29,13 @@ class LoginScreen extends StatelessWidget {
                   "Welcome to Easy Bank",
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                  ),
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w300),
                 ),
               ),
               SizedBox(
-                height: 400,
+                height: 300,
               ),
               TextField(
                 decoration: InputDecoration(
@@ -44,7 +43,10 @@ class LoginScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                       borderSide: BorderSide.none),
                   hintText: 'Username',
-                  hintStyle: TextStyle(color: Colors.white),
+                  hintStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300),
                   fillColor: Color(0xFF334756),
                   filled: true,
                   focusColor: Colors.white,
@@ -59,7 +61,10 @@ class LoginScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                       borderSide: BorderSide.none),
                   hintText: 'Password',
-                  hintStyle: TextStyle(color: Colors.white),
+                  hintStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300),
                   fillColor: Color(0xFF334756),
                   filled: true,
                 ),
@@ -87,19 +92,24 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    width: 55,
+                    width: 100,
                   ),
                   ElevatedButton(
-                    child: const Text('Login'),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600, color: Colors.black),
+                    ),
                     onPressed: () {
                       print('Logged In');
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Color(0xFFF0A500),
-                        minimumSize: Size(150, 10),
+                        minimumSize: Size(144, 57),
                         padding: EdgeInsets.all(20),
                         shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(7))),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15))),
                         textStyle: TextStyle(
                           fontSize: 20,
                         )),

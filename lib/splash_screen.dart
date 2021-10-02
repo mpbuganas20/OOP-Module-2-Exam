@@ -1,4 +1,3 @@
-import 'package:bankingapp/login.dart';
 import 'package:bankingapp/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _navigatetohome() async {
-    await Future.delayed(Duration(milliseconds: 2000), () {});
+    await Future.delayed(Duration(milliseconds: 3000), () {});
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -32,41 +31,40 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xff082032),
         body: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: 200,
-              ),
-              Container(
-                  height: 300,
-                  width: 300,
-                  //color: Colors.blueGrey,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                    image: AssetImage('images/Easy_Bank_Logo_4.png'),
-                    fit: BoxFit.fill,
-                  ))),
-              SizedBox(
-                height: 225,
-              ),
-              Container(
-                  child: Text('Easy Bank',
-                      style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xffF0A500)))),
-              Positioned(
-                  child: Align(
-                      alignment: FractionalOffset.bottomCenter,
-                      child: Text(
-                        '© 2021-2022 All Rights Reserved',
-                        style: TextStyle(color: Colors.white),
-                      ))),
-            ],
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(
+            height: 100,
           ),
-        ));
+          Container(
+            height: MediaQuery.of(context).size.height / 4,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/Easy_Bank_Logo_4.png"))),
+          ),
+          SizedBox(
+            height: 200,
+          ),
+          Container(
+              child: Text('EASY BANK',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFFF0A500)))),
+          Positioned(
+              child: Align(
+                  alignment: FractionalOffset.bottomCenter,
+                  child: Text(
+                    '© 2021-2022 All Rights Reserved',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300),
+                  ))),
+        ],
+      ),
+    ));
   }
 }
