@@ -1,0 +1,4 @@
+#Thu Sep 30 02:00:13 PST 2021
+base.0=/Users/markbuganas/Documents/MCM OOP/practice-mobileapp/bankingapp/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
