@@ -1,4 +1,4 @@
-import 'package:bankingapp/welcome.dart';
+import 'package:bankingapp/auth_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => WelcomeScreen(),
+          builder: (context) => AuthenticationScreen(),
         ));
   }
 
