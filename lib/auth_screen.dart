@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
+import 'login_screen.dart';
 
-class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
+class AuthenticationScreen extends StatelessWidget {
+  const AuthenticationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class WelcomeScreen extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
-        padding: const EdgeInsets.only(top: 55, left: 20, right: 20),
+        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -44,27 +44,21 @@ class WelcomeScreen extends StatelessWidget {
                     image: DecorationImage(
                         image: AssetImage("assets/images/Welcome.jpg"))),
               ),
-              SizedBox(
-                height: 4,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 50),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
-                  },
-                  child: const Text('Login'),
-                  style: ElevatedButton.styleFrom(
-                    primary: Color(0xFFF0A500),
-                    minimumSize: Size(279, 40),
-                    padding: EdgeInsets.all(10),
-                    onPrimary: Color(0xFF000000),
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(14))),
-                    textStyle:
-                        TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-                  ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                },
+                child: const Text('Login'),
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFFF0A500),
+                  minimumSize: Size(279, 40),
+                  padding: EdgeInsets.all(10),
+                  onPrimary: Color(0xFF000000),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(14))),
+                  textStyle:
+                      TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                 ),
               ),
             ]),
