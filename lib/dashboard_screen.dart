@@ -1,3 +1,4 @@
+import 'package:bankingapp/transaction_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'user_transactions.dart';
@@ -117,45 +118,39 @@ class DashboardScreen extends StatelessWidget {
                 )),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(0xFF0B2C44),
-                        minimumSize: Size(169, 35),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                      ),
-                      child: Row(
-                        children: [
-                          Text("Add Card",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 18)),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          Icon(Icons.add)
-                        ],
-                      )),
-                ),
-                ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xFFF0A500),
-                      minimumSize: Size(79, 33),
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                    ),
-                    child: Text("Transfer")),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: ElevatedButton(
-                      onPressed: () {},
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0xFF0B2C44),
+                          minimumSize: Size(169, 35),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                        ),
+                        child: Row(
+                          children: [
+                            Text("Add Card",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 18)),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Icon(Icons.add)
+                          ],
+                        )),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TransactionScreen()));
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Color(0xFFF0A500),
                         minimumSize: Size(79, 33),
@@ -163,11 +158,22 @@ class DashboardScreen extends StatelessWidget {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                       ),
-                      child: Text("Deposit")),
-                )
-              ],
-            ),
-          ),
+                      child: Text("Transfer")),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0xFFF0A500),
+                          minimumSize: Size(79, 33),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                        ),
+                        child: Text("Deposit")),
+                  )
+                ],
+              )),
           Row(
             children: [
               Text(
@@ -189,14 +195,8 @@ class DashboardScreen extends StatelessWidget {
                       decoration: TextDecoration.underline),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      final snackBar = SnackBar(
-                        content: Text("Under Construction"),
-                        action: SnackBarAction(
-                          label: "Undo",
-                          onPressed: () {},
-                        ),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Under Construction')));
                     },
                 ),
                 TextSpan(text: ">")
