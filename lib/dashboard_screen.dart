@@ -1,3 +1,4 @@
+import 'package:bankingapp/transaction_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -149,15 +150,20 @@ class DashboardScreen extends StatelessWidget {
                         )),
                   ),
                   ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFF0A500),
-                        minimumSize: Size(79, 33),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                      ),
-                      child: Text("Transfer")),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TransactionScreen()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFFF0A500),
+                      minimumSize: Size(79, 33),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                    ),
+                    child: Text("Transfer"),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(left: 5),
                     child: ElevatedButton(
