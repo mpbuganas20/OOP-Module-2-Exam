@@ -1,24 +1,30 @@
 class Accounts {
-  String userName;
-  String userNumber; //max 11 char
-  double userBalance = 100000.00;
+  String user;
+  String accNumber; //max 11 char
+  double balance;
 
-  Accounts(this.userName, this.userNumber, this.userBalance);
-
-  transferMoney(String name, String number, double amount) {
-    String transfereeName = name;
-    String transfereeNumber = number;
-    double amountTransfered = amount;
-  }
-
-  validateTransfer(double amount) {
-    bool isTrue = false;
-    if (amount > 200) {
-      isTrue = true;
-      return isTrue;
-    } else if (amount > this.userBalance) {
-      isTrue = false;
-      return isTrue;
-    }
-  }
+  Accounts(this.user, this.accNumber, this.balance);
 }
+
+List<Accounts> accounts = accountsData
+    .map(
+      (item) => Accounts(
+        item['user'] as String,
+        item['accNumber'] as String,
+        item['balance'] as double,
+      ),
+    )
+    .toList();
+
+var accountsData = [
+  {
+    "user": "Lorem Ipsum",
+    "accNumber": "00023678234",
+    "balance": 15080.59,
+  },
+  {
+    "user": "Lorem Ipsum",
+    "accNumber": "98675346875",
+    "balance": 200.00,
+  }
+];

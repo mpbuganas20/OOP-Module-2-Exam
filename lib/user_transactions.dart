@@ -26,5 +26,50 @@ var transactionsData = [
     "type": "Transfer",
     "date": "Sept 5",
     "amount": 10000.00,
-  }
+  },
+  {
+    "type": "Deposit",
+    "date": "Sept 5",
+    "amount": 500.00,
+  },
+  {
+    "type": "Deposit",
+    "date": "Sept 5",
+    "amount": 500.00,
+  },
+  {
+    "type": "Deposit",
+    "date": "Sept 5",
+    "amount": 500.00,
+  },
+  {
+    "type": "Deposit",
+    "date": "Sept 5",
+    "amount": 500.00,
+  },
+  {
+    "type": "Deposit",
+    "date": "Sept 5",
+    "amount": 500.00,
+  },
+  {
+    "type": "Deposit",
+    "date": "Sept 5",
+    "amount": 500.00,
+  },
+  {
+    "type": "Deposit",
+    "date": "Sept 5",
+    "amount": 500.00,
+  },
+  {
+    "type": "Deposit",
+    "date": "Sept 5",
+    "amount": 500.00,
+  },
+  {
+    "type": "Deposit",
+    "date": "Sept 5",
+    "amount": 500.00,
+  },
 ];
