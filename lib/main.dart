@@ -1,4 +1,4 @@
-import 'package:bankingapp/splash_screen.dart';
+import 'screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: Colors.white,
           canvasColor: Color(0xFF082032),
           fontFamily: 'LexendDeca'),
       debugShowCheckedModeBanner: false,

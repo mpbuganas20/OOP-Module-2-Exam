@@ -9,6 +9,9 @@ class AuthenticationScreen extends StatelessWidget {
     return Scaffold(
         body: SafeArea(
       child: Container(
+        constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height,
+            maxWidth: MediaQuery.of(context).size.width),
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
         padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),

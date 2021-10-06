@@ -1,5 +1,8 @@
+import 'package:bankingapp/transaction_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'user_transactions.dart';
+import 'user_data.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -8,9 +11,12 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
-        child: Column(
-          children: [
+        padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+        child: Container(
+          constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height,
+              maxWidth: MediaQuery.of(context).size.width),
+          child: Column(children: [
             Row(
               children: [
                 IconButton(
@@ -36,14 +42,8 @@ class DashboardScreen extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10),
               child: ElevatedButton(
                   onPressed: () {
-                    final snackBar = SnackBar(
-                      content: Text("Under Construction"),
-                      action: SnackBarAction(
-                        label: "Undo",
-                        onPressed: () {},
-                      ),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Under Construction')));
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xFF334756),
@@ -122,46 +122,40 @@ class DashboardScreen extends StatelessWidget {
                   )),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          primary: Color(0xFF0B2C44),
-                          minimumSize: Size(169, 35),
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                        ),
-                        child: Row(
-                          children: [
-                            Text("Add Card",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 18)),
-                            SizedBox(
-                              width: 30,
-                            ),
-                            Icon(Icons.add)
-                          ],
-                        )),
-                  ),
-                  ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFF0A500),
-                        minimumSize: Size(79, 33),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                      ),
-                      child: Text("Transfer")),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: ElevatedButton(
-                        onPressed: () {},
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            primary: Color(0xFF0B2C44),
+                            minimumSize: Size(169, 35),
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                          ),
+                          child: Row(
+                            children: [
+                              Text("Add Card",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18)),
+                              SizedBox(
+                                width: 30,
+                              ),
+                              Icon(Icons.add)
+                            ],
+                          )),
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TransactionScreen()));
+                        },
                         style: ElevatedButton.styleFrom(
                           primary: Color(0xFFF0A500),
                           minimumSize: Size(79, 33),
@@ -169,11 +163,22 @@ class DashboardScreen extends StatelessWidget {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                         ),
-                        child: Text("Deposit")),
-                  )
-                ],
-              ),
-            ),
+                        child: Text("Transfer")),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            primary: Color(0xFFF0A500),
+                            minimumSize: Size(79, 33),
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                          ),
+                          child: Text("Deposit")),
+                    )
+                  ],
+                )),
             Row(
               children: [
                 Text(
@@ -195,22 +200,87 @@ class DashboardScreen extends StatelessWidget {
                         decoration: TextDecoration.underline),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        final snackBar = SnackBar(
-                          content: Text("Under Construction"),
-                          action: SnackBarAction(
-                            label: "Undo",
-                            onPressed: () {},
-                          ),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Under Construction')));
                       },
                   ),
                   TextSpan(text: ">")
                 ]))
               ],
             ),
-            //diri
-          ],
+            SizedBox(
+              height: 250,
+              child: Card(
+                color: Color(0xFF0B2C44),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(26))),
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: transactions.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black38,
+                                  spreadRadius: -1,
+                                  blurRadius: 7,
+                                  offset: Offset(0, 0)),
+                              BoxShadow(
+                                color: Color(0xFF0B2C44),
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ), //BoxShadow
+                            ], borderRadius: BorderRadius.circular(10)),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(height: 5),
+                                        Text(
+                                          transactions[index].type,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 18,
+                                              color: Color(0xFFFFFFFF)),
+                                        ),
+                                        Text(
+                                          transactions[index].date,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w200,
+                                              fontSize: 14,
+                                              color: Color(0xFFFFFFFF)),
+                                        )
+                                      ]),
+                                  Text(
+                                    "+ PHP " +
+                                        transactions[index].amount.toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18,
+                                        color: Color(0xFFF0A501)),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+            )
+          ]),
         ),
       ),
     );

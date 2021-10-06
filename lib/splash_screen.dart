@@ -32,6 +32,9 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
+      constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height,
+          maxWidth: MediaQuery.of(context).size.width),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
