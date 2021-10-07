@@ -282,7 +282,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                   )
                                                 ]),
                                             Text(
-                                              "+ PHP " +
+                                              "- PHP " +
                                                   NumberFormat('###,000.00')
                                                       .format(
                                                           amountList[index]),
