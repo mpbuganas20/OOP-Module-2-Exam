@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 import '/user_transactions.dart';
 import '/user_data.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
+  @override
+  _DashboardScreenState createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
   final account = Accounts();
-  DashboardScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -153,11 +157,7 @@ class DashboardScreen extends StatelessWidget {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      TransactionScreen(account: account)));
+                          navigateSecondPage();
                         },
                         style: ElevatedButton.styleFrom(
                           primary: Color(0xFFF0A500),
@@ -292,5 +292,20 @@ class DashboardScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void refreshData() {
+    account.accountBalance;
+  }
+
+  onGoBack(dynamic value) {
+    refreshData();
+    setState(() {});
+  }
+
+  void navigateSecondPage() {
+    Route route = MaterialPageRoute(
+        builder: (context) => TransactionScreen(account: account));
+    Navigator.push(context, route).then(onGoBack);
   }
 }

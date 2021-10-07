@@ -1,6 +1,5 @@
 import 'package:bankingapp/screens/transfer_confirmation_screen.dart';
 import 'package:flutter/services.dart';
-import 'splash_screen.dart';
 import 'package:flutter/material.dart';
 import '/user_data.dart';
 import 'dashboard_screen.dart';
@@ -132,10 +131,15 @@ class TransactionScreen extends StatelessWidget {
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(RegExp('[0-9.,]+')),
                         ],
-                        validator: (value) => double.parse(value!) > 200 &&
-                                double.parse(value) <= account.accountBalance
-                            ? null
-                            : '',
+                        validator: (value) {
+                          if (double.parse(value!) < 200 ||
+                              double.parse(value) > account.accountBalance) {
+                            //allow upper and lower case alphabets and space
+                            return '';
+                          } else {
+                            return null;
+                          }
+                        },
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
@@ -167,7 +171,7 @@ class TransactionScreen extends StatelessWidget {
                       Container(
                         width: MediaQuery.of(context).size.width - 50,
                         child: Text(
-                          "Current Balance: PHP" +
+                          "Current Balance: PHP " +
                               account.accountBalance.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.w300,
@@ -177,13 +181,23 @@ class TransactionScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 10),
-                      TextField(
+                      TextFormField(
                         controller: accountNameReceiver,
+                        validator: (value) {
+                          if (value!.isEmpty ||
+                              !RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                            //allow upper and lower case alphabets and space
+                            return '';
+                          } else {
+                            return null;
+                          }
+                        },
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
                             color: Color(0xFFFFFFFF)),
                         decoration: InputDecoration(
+                          errorStyle: TextStyle(height: 0),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: Color(0xFF0B2C44), width: 2.0),
@@ -207,13 +221,29 @@ class TransactionScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 10),
-                      TextField(
+                      TextFormField(
                         controller: accountNumberReceiver,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                          LengthLimitingTextInputFormatter(12)
+                        ],
+                        validator: (value) {
+                          if (value!.isEmpty ||
+                              !RegExp('[0-9]').hasMatch(value) ||
+                              value.length != 12) {
+                            //allow upper and lower case alphabets and space
+                            return '';
+                          } else {
+                            return null;
+                          }
+                        },
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
                             color: Color(0xFFFFFFFF)),
                         decoration: InputDecoration(
+                          errorStyle: TextStyle(height: 0),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: Color(0xFF0B2C44), width: 2.0),
@@ -237,13 +267,15 @@ class TransactionScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 10),
-                      TextField(
+                      TextFormField(
                         controller: noteForReceiver,
+                        validator: (value) => value!.isNotEmpty ? null : '',
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
                             color: Color(0xFFFFFFFF)),
                         decoration: InputDecoration(
+                          errorStyle: TextStyle(height: 0),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: Color(0xFF0B2C44), width: 2.0),
