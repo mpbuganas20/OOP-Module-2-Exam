@@ -1,30 +1,18 @@
+import 'package:intl/intl.dart';
+
 class Accounts {
-  String user;
-  String accNumber; //max 11 char
-  double balance;
+  String firstName = "John";
+  String lastName = "Jones";
+  String accountNumber = "2018 1032 1229";
+  String expDate = "06/24";
+  double accountBalance = 100000;
 
-  Accounts(this.user, this.accNumber, this.balance);
-}
-
-List<Accounts> accounts = accountsData
-    .map(
-      (item) => Accounts(
-        item['user'] as String,
-        item['accNumber'] as String,
-        item['balance'] as double,
-      ),
-    )
-    .toList();
-
-var accountsData = [
-  {
-    "user": "Lorem Ipsum",
-    "accNumber": "00023678234",
-    "balance": 15080.59,
-  },
-  {
-    "user": "Lorem Ipsum",
-    "accNumber": "98675346875",
-    "balance": 200.00,
+  transfer(amount) {
+    accountBalance -= amount;
+    print("amount transferred. current balance: " + accountBalance.toString());
   }
-];
+
+  display() {
+    print(accountBalance.toString());
+  }
+}

@@ -5,7 +5,8 @@ import '/user_transactions.dart';
 import '/user_data.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  final account = Accounts();
+  DashboardScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class DashboardScreen extends StatelessWidget {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  "Hello, John",
+                  "Welcome, " + account.firstName,
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -42,6 +43,7 @@ class DashboardScreen extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10),
               child: ElevatedButton(
                   onPressed: () {
+                    print(Accounts().accountBalance.toString());
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Under Construction')));
                   },
@@ -56,7 +58,7 @@ class DashboardScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text("John Jones",
+                          Text(account.firstName + " " + account.lastName,
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
@@ -72,10 +74,10 @@ class DashboardScreen extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Center(
-                        child: Text("**** **** 1234",
+                        child: Text(account.accountNumber,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 24,
@@ -95,7 +97,7 @@ class DashboardScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w300,
                                         fontSize: 18)),
                                 Text(
-                                  "PHP 100,000",
+                                  "PHP " + account.accountBalance.toString(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 24,
@@ -111,7 +113,7 @@ class DashboardScreen extends StatelessWidget {
                           Container(
                             padding: EdgeInsets.only(top: 20, right: 3),
                             child: Text(
-                              "06/24",
+                              account.expDate,
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                   fontWeight: FontWeight.w300, fontSize: 18),
@@ -154,7 +156,8 @@ class DashboardScreen extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => TransactionScreen()));
+                                  builder: (context) =>
+                                      TransactionScreen(account: account)));
                         },
                         style: ElevatedButton.styleFrom(
                           primary: Color(0xFFF0A500),
@@ -209,76 +212,80 @@ class DashboardScreen extends StatelessWidget {
                 ]))
               ],
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 2.5,
-              child: Card(
-                color: Color(0xFF0B2C44),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(26))),
-                child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: transactions.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Container(
-                            height: 50,
-                            decoration: BoxDecoration(boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black38,
-                                  spreadRadius: -1,
-                                  blurRadius: 7,
-                                  offset: Offset(0, 0)),
-                              BoxShadow(
-                                color: Color(0xFF0B2C44),
-                                offset: const Offset(0.0, 0.0),
-                                blurRadius: 0.0,
-                                spreadRadius: 0.0,
-                              ), //BoxShadow
-                            ], borderRadius: BorderRadius.circular(10)),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(height: 5),
-                                        Text(
-                                          transactions[index].type,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 18,
-                                              color: Color(0xFFFFFFFF)),
-                                        ),
-                                        Text(
-                                          transactions[index].date,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w200,
-                                              fontSize: 14,
-                                              color: Color(0xFFFFFFFF)),
-                                        )
-                                      ]),
-                                  Text(
-                                    "+ PHP " +
-                                        transactions[index].amount.toString(),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18,
-                                        color: Color(0xFFF0A501)),
-                                  )
-                                ],
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height / 3,
+                child: Card(
+                  color: Color(0xFF0B2C44),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(26))),
+                  child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, top: 5, bottom: 10),
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black38,
+                                    spreadRadius: -1,
+                                    blurRadius: 7,
+                                    offset: Offset(0, 0)),
+                                BoxShadow(
+                                  color: Color(0xFF0B2C44),
+                                  offset: const Offset(0.0, 0.0),
+                                  blurRadius: 0.0,
+                                  spreadRadius: 0.0,
+                                ), //BoxShadow
+                              ], borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(height: 5),
+                                          Text(
+                                            transactions[index].type,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 18,
+                                                color: Color(0xFFFFFFFF)),
+                                          ),
+                                          Text(
+                                            transactions[index].date,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w200,
+                                                fontSize: 14,
+                                                color: Color(0xFFFFFFFF)),
+                                          )
+                                        ]),
+                                    Text(
+                                      "+ PHP " +
+                                          transactions[index].amount.toString(),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18,
+                                          color: Color(0xFFF0A501)),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      }),
+                ),
               ),
             )
           ]),

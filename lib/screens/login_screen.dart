@@ -138,7 +138,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                             onPressed: () {
                               if (formGlobalKey.currentState!.validate()) {
-                                Navigator.push(
+                                Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>

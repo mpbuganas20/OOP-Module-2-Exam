@@ -1,10 +1,19 @@
+import 'package:bankingapp/screens/transfer_confirmation_screen.dart';
+import 'package:flutter/services.dart';
 import 'splash_screen.dart';
 import 'package:flutter/material.dart';
 import '/user_data.dart';
 import 'dashboard_screen.dart';
 
 class TransactionScreen extends StatelessWidget {
-  const TransactionScreen({Key? key}) : super(key: key);
+  final amountTransferred = TextEditingController();
+  final accountNameReceiver = TextEditingController();
+  final accountNumberReceiver = TextEditingController();
+  final noteForReceiver = TextEditingController();
+  final Accounts account;
+
+  TransactionScreen({Key? key, required this.account}) : super(key: key);
+  final formGlobalKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -112,135 +121,153 @@ class TransactionScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(
                     top: 20, left: 20, right: 20, bottom: 10),
-                child: Column(
-                  children: [
-                    TextField(
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xFFFFFFFF)),
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xFF0B2C44), width: 2.0),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xFF0B2C44), width: 2.0),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        labelText: "Amount to Transfer",
-                        hintText: "200",
-                        hintStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFFFFFFFF).withOpacity(0.2)),
-                        labelStyle: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFFFFFFFF)),
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 50,
-                      child: Text(
-                        "Current Balance: PHP 100,000",
+                child: Form(
+                  key: formGlobalKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: amountTransferred,
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp('[0-9.,]+')),
+                        ],
+                        validator: (value) => double.parse(value!) > 200 &&
+                                double.parse(value) <= account.accountBalance
+                            ? null
+                            : '',
                         style: TextStyle(
-                            fontWeight: FontWeight.w300,
-                            fontSize: 14,
-                            color: Colors.white),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    TextField(
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xFFFFFFFF)),
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xFF0B2C44), width: 2.0),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xFF0B2C44), width: 2.0),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        labelText: "Receiver Account Name",
-                        hintText: "John Jones",
-                        hintStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFFFFFFFF).withOpacity(0.2)),
-                        labelStyle: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
                             color: Color(0xFFFFFFFF)),
+                        decoration: InputDecoration(
+                          errorStyle: TextStyle(height: 0),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF0B2C44), width: 2.0),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF0B2C44), width: 2.0),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          labelText: "Amount to Transfer",
+                          hintText: "200",
+                          hintStyle: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xFFFFFFFF).withOpacity(0.2)),
+                          labelStyle: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFFFFFFFF)),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    TextField(
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xFFFFFFFF)),
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xFF0B2C44), width: 2.0),
-                          borderRadius: BorderRadius.circular(15),
+                      Container(
+                        width: MediaQuery.of(context).size.width - 50,
+                        child: Text(
+                          "Current Balance: PHP" +
+                              account.accountBalance.toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 14,
+                              color: Colors.white),
+                          textAlign: TextAlign.left,
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xFF0B2C44), width: 2.0),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        labelText: "Receiver Account Number",
-                        hintText: "0000 0000 0000",
-                        hintStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFFFFFFFF).withOpacity(0.2)),
-                        labelStyle: TextStyle(
+                      ),
+                      SizedBox(height: 10),
+                      TextField(
+                        controller: accountNameReceiver,
+                        style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
                             color: Color(0xFFFFFFFF)),
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF0B2C44), width: 2.0),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF0B2C44), width: 2.0),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          labelText: "Receiver Account Name",
+                          hintText: "John Jones",
+                          hintStyle: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xFFFFFFFF).withOpacity(0.2)),
+                          labelStyle: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFFFFFFFF)),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    TextField(
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xFFFFFFFF)),
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xFF0B2C44), width: 2.0),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xFF0B2C44), width: 2.0),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        labelText: "Note",
-                        hintText: "Loan",
-                        hintStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFFFFFFFF).withOpacity(0.2)),
-                        labelStyle: TextStyle(
+                      SizedBox(height: 10),
+                      TextField(
+                        controller: accountNumberReceiver,
+                        style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
                             color: Color(0xFFFFFFFF)),
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF0B2C44), width: 2.0),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF0B2C44), width: 2.0),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          labelText: "Receiver Account Number",
+                          hintText: "0000 0000 0000",
+                          hintStyle: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xFFFFFFFF).withOpacity(0.2)),
+                          labelStyle: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFFFFFFFF)),
+                        ),
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 10),
+                      TextField(
+                        controller: noteForReceiver,
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFFFFFFFF)),
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF0B2C44), width: 2.0),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF0B2C44), width: 2.0),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          labelText: "Note",
+                          hintText: "Loan",
+                          hintStyle: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xFFFFFFFF).withOpacity(0.2)),
+                          labelStyle: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFFFFFFFF)),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Padding(
@@ -248,15 +275,27 @@ class TransactionScreen extends StatelessWidget {
                     top: 15, left: 25, right: 25, bottom: 20),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SplashScreen()));
+                    if (formGlobalKey.currentState!.validate()) {
+                      account.transfer(double.parse(amountTransferred.text));
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TransferConfirmationScreen(
+                                    amount: amountTransferred.text,
+                                    name: accountNameReceiver.text,
+                                    number: accountNumberReceiver.text,
+                                    note: noteForReceiver.text,
+                                  )));
+                    } else {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text('Error')));
+                    }
+                    ;
                   },
                   child: const Text('Transfer'),
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xFFF0A500),
-                    minimumSize: Size(500, 55),
+                    minimumSize: Size(300, 55),
                     onPrimary: Color(0xFF000000),
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(14))),
