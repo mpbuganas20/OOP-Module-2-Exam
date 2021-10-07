@@ -1,12 +1,23 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'dashboard_screen.dart';
-import '/user_transactions.dart';
 
 class TransferConfirmationScreen extends StatelessWidget {
   final amount;
   final name;
   final number;
   final note;
+  final String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
+
+  transactionNumber() {
+    var random = new Random();
+    int min = 100000;
+    int max = 200000;
+    int result = min + random.nextInt(max - min);
+    return result;
+  }
+
   TransferConfirmationScreen(
       {Key? key, @required this.amount, this.name, this.number, this.note})
       : super(key: key);
@@ -39,7 +50,8 @@ class TransferConfirmationScreen extends StatelessWidget {
                     color: Colors.white),
               ),
               Text(
-                amount,
+                "PHP " +
+                    NumberFormat('###,000.00').format(double.parse(amount)),
                 style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w600,
@@ -128,7 +140,7 @@ class TransferConfirmationScreen extends StatelessWidget {
                                     fontWeight: FontWeight.w300,
                                     fontSize: 16),
                               ),
-                              Text('06/29/21',
+                              Text(date,
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500,
@@ -146,7 +158,7 @@ class TransferConfirmationScreen extends StatelessWidget {
                                     fontWeight: FontWeight.w300,
                                     fontSize: 16),
                               ),
-                              Text('#24125662',
+                              Text("#" + transactionNumber().toString(),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500,
@@ -164,8 +176,6 @@ class TransferConfirmationScreen extends StatelessWidget {
                               ),
                             ),
                             onPressed: () {
-                              Transactions(
-                                  'transfer', '05/24', double.parse(amount));
                               Navigator.pop(
                                   context,
                                   MaterialPageRoute(

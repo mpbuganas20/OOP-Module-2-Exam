@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 class Accounts {
   String firstName = "John";
   String lastName = "Jones";
