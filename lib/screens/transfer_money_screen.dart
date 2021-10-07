@@ -1,7 +1,9 @@
+import 'package:bankingapp/models/user_transactions.dart';
 import 'package:bankingapp/screens/transfer_confirmation_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import '/user_data.dart';
+import 'package:intl/intl.dart';
+import '/models/user_data.dart';
 import 'dashboard_screen.dart';
 
 class TransactionScreen extends StatelessWidget {
@@ -10,6 +12,7 @@ class TransactionScreen extends StatelessWidget {
   final accountNumberReceiver = TextEditingController();
   final noteForReceiver = TextEditingController();
   final Accounts account;
+  final String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
   TransactionScreen({Key? key, required this.account}) : super(key: key);
   final formGlobalKey = GlobalKey<FormState>();
@@ -87,7 +90,7 @@ class TransactionScreen extends StatelessWidget {
                         children: [
                           SizedBox(height: 30),
                           Text(
-                            "**** **** 1234",
+                            account.accountNumber,
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16,
@@ -99,7 +102,7 @@ class TransactionScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "06/24",
+                                account.expDate,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w300,
                                     fontSize: 16,
@@ -157,7 +160,7 @@ class TransactionScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           labelText: "Amount to Transfer",
-                          hintText: "200",
+                          hintText: "Must not below PHP 200",
                           hintStyle: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
@@ -172,7 +175,8 @@ class TransactionScreen extends StatelessWidget {
                         width: MediaQuery.of(context).size.width - 50,
                         child: Text(
                           "Current Balance: PHP " +
-                              account.accountBalance.toString(),
+                              NumberFormat('###,000.00')
+                                  .format(account.accountBalance),
                           style: TextStyle(
                               fontWeight: FontWeight.w300,
                               fontSize: 14,
@@ -255,7 +259,7 @@ class TransactionScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           labelText: "Receiver Account Number",
-                          hintText: "0000 0000 0000",
+                          hintText: "Enter 12 digit account number",
                           hintStyle: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
@@ -308,6 +312,9 @@ class TransactionScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     if (formGlobalKey.currentState!.validate()) {
+                      typeList.add("Transfer");
+                      dateList.add(date);
+                      amountList.add(double.parse(amountTransferred.text));
                       account.transfer(double.parse(amountTransferred.text));
                       Navigator.pushReplacement(
                           context,
