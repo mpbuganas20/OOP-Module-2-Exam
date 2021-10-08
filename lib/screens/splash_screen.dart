@@ -36,10 +36,9 @@ class _SplashScreenState extends State<SplashScreen> {
           maxHeight: MediaQuery.of(context).size.height,
           maxWidth: MediaQuery.of(context).size.width),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SizedBox(
-            height: 100,
+            height: MediaQuery.of(context).size.height / 3,
           ),
           Container(
             height: MediaQuery.of(context).size.height / 4,
