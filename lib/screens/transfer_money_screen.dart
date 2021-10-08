@@ -11,6 +11,7 @@ class TransactionScreen extends StatelessWidget {
   final accountNameReceiver = TextEditingController();
   final accountNumberReceiver = TextEditingController();
   final noteForReceiver = TextEditingController();
+  final transactionNumber = transactionNumberGenerator();
   final Accounts account;
   final String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
@@ -235,7 +236,8 @@ class TransactionScreen extends StatelessWidget {
                         validator: (value) {
                           if (value!.isEmpty ||
                               !RegExp('[0-9]').hasMatch(value) ||
-                              value.length != 12) {
+                              value.length != 12 ||
+                              value == account.accountNumber) {
                             //allow upper and lower case alphabets and space
                             return '';
                           } else {
@@ -312,9 +314,13 @@ class TransactionScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     if (formGlobalKey.currentState!.validate()) {
-                      typeList.add("Transfer");
-                      dateList.add(date);
-                      amountList.add(double.parse(amountTransferred.text));
+                      transactions.add(new Transaction(
+                          type: 'Transfer',
+                          date: date,
+                          balance: double.parse(amountTransferred.text),
+                          accNumTransferredTo: accountNumberReceiver.text,
+                          accNameTransferredTo: accountNameReceiver.text,
+                          transactionNumber: transactionNumber));
                       account.transfer(double.parse(amountTransferred.text));
                       Navigator.pushReplacement(
                           context,
@@ -324,6 +330,7 @@ class TransactionScreen extends StatelessWidget {
                                     name: accountNameReceiver.text,
                                     number: accountNumberReceiver.text,
                                     note: noteForReceiver.text,
+                                    transactionNumber: transactionNumber,
                                   )));
                     } else {
                       ScaffoldMessenger.of(context)
