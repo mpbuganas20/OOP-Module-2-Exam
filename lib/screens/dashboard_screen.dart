@@ -214,7 +214,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       color: Color(0xFF0B2C44),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(26))),
-                      child: typeList.isEmpty
+                      child: transactions.isEmpty
                           ? const Center(
                               child: Text('No Transactions Yet',
                                   style: TextStyle(
@@ -223,7 +223,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       color: Colors.white)))
                           : ListView.builder(
                               scrollDirection: Axis.vertical,
-                              itemCount: typeList.length,
+                              itemCount: transactions.length,
                               itemBuilder: (context, index) {
                                 return Container(
                                   child: Padding(
@@ -263,7 +263,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                 children: [
                                                   SizedBox(height: 5),
                                                   Text(
-                                                    typeList[index],
+                                                    transactions[index].type,
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.w400,
@@ -272,7 +272,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                             Color(0xFFFFFFFF)),
                                                   ),
                                                   Text(
-                                                    dateList[index],
+                                                    transactions[index].date,
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.w200,
@@ -285,7 +285,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                               "- PHP " +
                                                   NumberFormat('###,000.00')
                                                       .format(
-                                                          amountList[index]),
+                                                          transactions[index]
+                                                              .balance),
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 18,
@@ -309,9 +310,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   void refreshData() {
     account.accountBalance;
-    typeList;
-    dateList;
-    amountList;
+    transactions;
   }
 
   onGoBack(dynamic value) {

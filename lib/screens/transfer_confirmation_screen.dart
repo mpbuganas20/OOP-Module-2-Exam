@@ -1,25 +1,23 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dashboard_screen.dart';
+import '/models/user_transactions.dart';
 
 class TransferConfirmationScreen extends StatelessWidget {
   final amount;
   final name;
   final number;
   final note;
+  final transactionNumber;
   final String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
-  transactionNumber() {
-    var random = new Random();
-    int min = 100000;
-    int max = 200000;
-    int result = min + random.nextInt(max - min);
-    return result;
-  }
-
   TransferConfirmationScreen(
-      {Key? key, @required this.amount, this.name, this.number, this.note})
+      {Key? key,
+      @required this.amount,
+      this.name,
+      this.number,
+      this.note,
+      this.transactionNumber})
       : super(key: key);
 
   @override
@@ -158,7 +156,7 @@ class TransferConfirmationScreen extends StatelessWidget {
                                     fontWeight: FontWeight.w300,
                                     fontSize: 16),
                               ),
-                              Text("#" + transactionNumber().toString(),
+                              Text("#" + transactionNumber.toString(),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500,

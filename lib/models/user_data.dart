@@ -1,7 +1,7 @@
 class Accounts {
   String firstName = "John";
   String lastName = "Jones";
-  String accountNumber = "2018 1032 1229";
+  String accountNumber = "201810321229";
   String expDate = "06/24";
   double accountBalance = 100000;
 
